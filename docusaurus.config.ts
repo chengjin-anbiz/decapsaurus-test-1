@@ -1,6 +1,7 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { ScalarOptions } from '@scalar/docusaurus'
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -46,26 +47,44 @@ const config: Config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
         theme: {
           customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
     ],
+  ],
+
+  plugins: [
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'API',
+        route: '/api',
+        showNavLink: true, // optional, default is true
+        configuration: {
+          // url: 'https://registry.scalar.com/@scalar/apis/galaxy?format=yaml',
+          sources: [
+            {
+              title: 'Scalar Demo API',
+              url: 'https://registry.scalar.com/@scalar/apis/galaxy?format=yaml'
+            }, 
+            {
+              title: 'Job Cards API',
+              url: './api-specs/jobcards.json'
+            }
+          ]
+        },
+      } as ScalarOptions
+    ],
+    // [
+    //   '@docusaurus/plugin-content-docs',
+    //   {
+    //     id: 'api',
+    //     path: 'api',
+    //     routeBasePath: 'api',
+    //     sidebarPath: './sidebars.ts'
+    //   }
+    // ]
   ],
 
   themeConfig: {
@@ -85,9 +104,14 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'API',
+          label: 'Docs',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        // {
+        //   to: '/api/intro',    // ./docs-api/Intro.md
+        //   label: 'API',
+        //   position: 'left',
+        //   activeBaseRegex: `/api/`,
+        // },
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',

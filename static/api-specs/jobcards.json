@@ -1,0 +1,1080 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Job Cards API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login with userName and password to retrieve a JWT token for authenticated access to protected endpoints.",
+        "description": "Login to retrieve JWT token\r\nExample:\r\n    POST api/auth/login",
+        "operationId": "Login",
+        "requestBody": {
+          "description": "An instance of ORLIG.API.SERVICEJOB.Models.LoginRequest.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceEngineers/{entity_id}": {
+      "get": {
+        "tags": [
+          "ServiceEngineers"
+        ],
+        "description": "Retrieve all Service Types for dropdown\r\n\r\nExample:\r\n    GET api/servicetypes/5",
+        "operationId": "GetServiceEngineers",
+        "parameters": [
+          {
+            "name": "entity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "994cbde4"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/{scheduleDate}": {
+      "get": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "description": "Retrieve a list of service request information based on a particular date. \r\nThe scheduleDate is in ISO 8601 date and time format.\r\n\r\nExample:\r\nGET api/servicejob/2025-11-01T00:00:00Z",
+        "operationId": "GetServiceJobsWithScheduleDate",
+        "parameters": [
+          {
+            "name": "scheduleDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "default": "2026-02-23T00:00:00Z"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceInfoResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceInfoResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceInfoResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/{serviceId}/tasks": {
+      "get": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "description": "Retrieve a list of tasks based on service request id. \r\n\r\nExample:\r\n    GET api/servicejob/5/tasks",
+        "operationId": "GetTasksWithServiceId",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": "59"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceTaskInfoResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceTaskInfoResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceTaskInfoResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "operationId": "CreateNewTask",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceTaskInfoCreateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceTaskInfoCreateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceTaskInfoCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/{serviceId}/tasks/{taskId}/{fileName}": {
+      "get": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "description": "Retrieve uploaded documents by Engineers. Everytime can only retrieve one file. \r\n\r\nExample:\r\n    GET api/servicejob/5/tasks/6/file.pdf",
+        "operationId": "GetTaskUploadedFile",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fileName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/{serviceId}/{fileName}/signature": {
+      "get": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "description": "Retrieve signature image file uploaded by Engineers. \r\n\r\nExample:\r\n    GET api/servicejob/5/file.pdf/signature",
+        "operationId": "GetSignatureImageFile",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fileName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/{serviceId}/tasks/{taskId}": {
+      "put": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "description": "Update Task Information by Service Engineer. It includes upload documents.\r\n\r\nExample:\r\n    PUT api/servicejob/5/file.pdf/signature",
+        "operationId": "UpdateTaskWithTaskId",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 117
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 157
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "RepairDurationHour": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 4
+                  },
+                  "RepairDurationMinute": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 30
+                  },
+                  "AssignedEngineerUserId": {
+                    "type": "string",
+                    "default": "snk_sandbox"
+                  },
+                  "ServiceTypeId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 18
+                  },
+                  "TaskDescription": {
+                    "type": "string",
+                    "default": "Task Description Test 1"
+                  },
+                  "TaskRemark": {
+                    "type": "string",
+                    "default": "Task Remark Test 1"
+                  },
+                  "TaskStatusId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 67
+                  },
+                  "TaskDocs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "RepairDurationHour": {
+                  "style": "form"
+                },
+                "RepairDurationMinute": {
+                  "style": "form"
+                },
+                "AssignedEngineerUserId": {
+                  "style": "form"
+                },
+                "ServiceTypeId": {
+                  "style": "form"
+                },
+                "TaskDescription": {
+                  "style": "form"
+                },
+                "TaskRemark": {
+                  "style": "form"
+                },
+                "TaskStatusId": {
+                  "style": "form"
+                },
+                "TaskDocs": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "operationId": "DeleteTask",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 117
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/{serviceId}/SignOff": {
+      "put": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "description": "Sign off Service Request by Main Engineer. It includes upload signature image file.\r\n\r\nExample:\r\n    PUT api/servicejob/5/Signoff",
+        "operationId": "SignOffServiceRequest",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 12
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ServiceStatusId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 4
+                  },
+                  "ServiceSignature": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "ServiceSignatureName": {
+                    "type": "string"
+                  },
+                  "ServiceSignatureDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "ServiceSignatureServiceProvider": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "ServiceSignatureNameServiceProvider": {
+                    "type": "string"
+                  },
+                  "ServiceSignatureDateServiceProvider": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "ServiceStatusId": {
+                  "style": "form"
+                },
+                "ServiceSignature": {
+                  "style": "form"
+                },
+                "ServiceSignatureName": {
+                  "style": "form"
+                },
+                "ServiceSignatureDate": {
+                  "style": "form"
+                },
+                "ServiceSignatureServiceProvider": {
+                  "style": "form"
+                },
+                "ServiceSignatureNameServiceProvider": {
+                  "style": "form"
+                },
+                "ServiceSignatureDateServiceProvider": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/selectedassets": {
+      "get": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "operationId": "GetSerialNumberBySavedAssets",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 117
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceJob/servicecountbydaterange": {
+      "get": {
+        "tags": [
+          "ServiceJob"
+        ],
+        "operationId": "GetServiceCountByDateRange",
+        "parameters": [
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "default": "2025-11-01T00:00:00Z"
+            }
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "default": "2025-11-05T00:00:00Z"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceInfoResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceInfoResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceInfoResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ServiceTaskStatuses/services/{serviceId}/entities/{entity_id}/{status_type}": {
+      "get": {
+        "tags": [
+          "ServiceTaskStatuses"
+        ],
+        "description": "Retrieve all relevant Service or Task Statuses for dropdown\r\n\r\nExample:\r\n    GET api/servicetaskstatuses/services/{serviceId}/entities/{entity_id}/{status_type}",
+        "operationId": "GetServiceOrTaskStatus",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 117
+            }
+          },
+          {
+            "name": "entity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "994cbde4"
+            }
+          },
+          {
+            "name": "status_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ServiceTypes/{entity_id}": {
+      "get": {
+        "tags": [
+          "ServiceTypes"
+        ],
+        "description": "Retrieve all Service Types for dropdown\r\n\r\nExample:\r\n    GET api/servicetypes/5",
+        "operationId": "GetServiceTypes",
+        "parameters": [
+          {
+            "name": "entity_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "994cbde4"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "default": "jason_csm_v6",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "default": "Abcd@12345",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceInfoEngineerResponse": {
+        "type": "object",
+        "properties": {
+          "engineerUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "engineerFirstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "engineerLastName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceInfoResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serviceRequestDisplayId": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountId": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceContractId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "serviceContractName": {
+            "type": "string",
+            "nullable": true
+          },
+          "engineerUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "engineerFullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobStartDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completionDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "travelDurationHour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "travelDurationMinute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serviceStatusId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serviceStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "isClosed": {
+            "type": "boolean"
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "reportNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "repairDurationHour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "repairDurationMinute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "contactId": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactFullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "remark": {
+            "type": "string",
+            "nullable": true
+          },
+          "addUpdateByUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "loginUserEntityId": {
+            "type": "string",
+            "nullable": true
+          },
+          "entityId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          },
+          "isMainEngineer": {
+            "type": "boolean"
+          },
+          "priorityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureFileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureFileUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureName": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "signatureFileNameServiceProvider": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureFileUrlServiceProvider": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureNameServiceProvider": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureDateServiceProvider": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "purchaseOrderNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "projectCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceInfoEngineersResponse": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceInfoEngineerResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceTaskInfoCreateRequest": {
+        "type": "object",
+        "properties": {
+          "engineerUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taskStatusId": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceTaskInfoResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "taskStatusId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taskStatusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isClosed": {
+            "type": "boolean"
+          },
+          "isCancelled": {
+            "type": "boolean"
+          },
+          "engineerUserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "engineerFullNBame": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serviceTypeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "actionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taskComment": {
+            "type": "string",
+            "nullable": true
+          },
+          "isEditable": {
+            "type": "boolean"
+          },
+          "repairDurationHour": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "repairDurationMinute": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "jobCardFiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceTaskJobCardFileResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ServiceTaskJobCardFileResponse": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
