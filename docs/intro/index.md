@@ -6,7 +6,7 @@ This is an introduction to the Docs part of the website.
 
 # 1. Editing Documents
 
-To edit documents, start by going to [the CMS panel](/admin/index.html) and log in with a writer's GitHub account.
+To edit documents, start by going to <a href="/admin/index.html">the CMS panel</a> and log in with a writer's GitHub account.
 
 You will see a list of links that mirror the structure of the Docs part of the live website. Each "folder" represents a file in the website.
 
