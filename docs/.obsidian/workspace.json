@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "2985152f1162288c",
+        "id": "b80455935c731464",
         "type": "tabs",
         "children": [
           {
-            "id": "323e83efbc3cc972",
+            "id": "d09d6906199bba7c",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -188,5 +188,9 @@
     }
   },
   "active": "ae905cf131396567",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "outbound/setup/index.md",
+    "inbound/index.md",
+    "inbound/guide/index.md"
+  ]
 }
