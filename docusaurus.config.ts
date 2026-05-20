@@ -59,16 +59,17 @@ const config: Config = {
         showNavLink: true, // optional, default is true
         configuration: {
           // url: 'https://registry.scalar.com/@scalar/apis/galaxy?format=yaml',
-          sources: [
-            {
-              title: 'Scalar Demo API',
-              url: 'https://registry.scalar.com/@scalar/apis/galaxy?format=yaml'
-            }, 
-            {
-              title: 'Job Cards API',
-              url: './api-specs/jobcards.json'
-            }
-          ]
+          url: "https://orlig.net/ORLIG_CRM_API_VNEXT/openapi/v1.json"
+          // sources: [
+          //   {
+          //     title: 'Scalar Demo API',
+          //     url: 'https://registry.scalar.com/@scalar/apis/galaxy?format=yaml'
+          //   }, 
+          //   {
+          //     title: 'Job Cards API',
+          //     url: './api-specs/jobcards.json'
+          //   }
+          // ]
         },
       } as ScalarOptions
     ],
