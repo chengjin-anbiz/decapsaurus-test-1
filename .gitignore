@@ -20,4 +20,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # Docs ignore
-docs/.obsidian/workspace.json
+.obsidian/workspace.json

@@ -18,6 +18,7 @@ Orlig CRM is designed using a modular, layered architecture that separates user
 
 In most upgrade scenarios, changes are confined to the **Domain Logic** layer, allowing Orlig to introduce new capabilities or regulatory updates without affecting existing user interfaces, integrations, or data structures. This minimizes regression risk, reduces upgrade effort, and ensures long-term platform stability for the business.
 
-![](/img/solutionoverview.png)
+![](../static/img/Pasted%20image%2020260520142709.png)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XmV2k9JKv5M?si=gmDFgbK0vhOiB_O0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
