@@ -12,6 +12,7 @@ Fulfilment results are returned to Orlig CRM to update case status and for S
 
 \[Put in a overview flow diagram] 
 
+### 1. Modular Architecture for Long-Term Stability
 1. **Modular Architecture for Long-Term Stability** 
 
 Orlig CRM is designed using a modular, layered architecture that separates user interface, business logic, integrations, automation services, and data access into distinct components. This approach ensures that system enhancements or version upgrades can be introduced in a controlled manner. 
